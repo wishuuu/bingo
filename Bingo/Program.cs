@@ -29,7 +29,7 @@ app.MapGet("/board", ([FromQuery(Name = "board")] int board) =>
     {
         if (BingoService.Boards.TryGetValue(board, out var boardDto))
         {
-            return Results.Text(Templates.BoardTemplate().Render(new { Fields = boardDto.FieldsInRows, Room = board }),
+            return Results.Text(Templates.BoardTemplate().Render(new { Fields = boardDto.FieldsInRows, Room = board, Name = boardDto.Name }),
                 "text/html");
         }
 
@@ -40,9 +40,9 @@ app.MapGet("/board", ([FromQuery(Name = "board")] int board) =>
 
 app.MapPost("/board", (HttpResponse resp, CreateBoardDto dto) =>
     {
-        var key = BingoService.AddBoard(new BingoBoard(dto.values));
+        var key = BingoService.AddBoard(new BingoBoard(dto.values, dto.Name));
 
-        if (BingoService.Boards.TryGetValue(key, out var boardDto))
+        if (BingoService.Boards.ContainsKey(key))
         {
             // return redirect to board
             resp.Headers.Append("HX-Redirect", $"/board?board={key}");

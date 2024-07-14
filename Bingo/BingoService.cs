@@ -35,6 +35,7 @@ public class BingoBoard
 {
     public int Size => (int)Math.Ceiling(Math.Sqrt(Fields.Count));
     public List<BingoField> Fields { get; set; }
+    public string Name { get; set; }
 
     public List<List<BingoField>> FieldsInRows => Enumerable.Range(0, Size).Select(x => Fields
         .Skip(x * Size)
@@ -42,9 +43,10 @@ public class BingoBoard
         .ToList()
     ).ToList();
     
-    public BingoBoard(List<string> values)
+    public BingoBoard(List<string> values, string name = "")
     {
         Fields = values.Select((x, i) => new BingoField(i, x)).ToList();
+        Name = String.IsNullOrEmpty(name) ? "GIGA BINGO" : name;
     }
     
     public void MarkField(int field)

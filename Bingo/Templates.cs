@@ -60,6 +60,7 @@ public class Templates
                     hx-swap=""outerHTML""
                     hx-trigger=""change""
                 />
+                <input class=""input input-bordered input-primary"" type=""text"" name=""name"" placeholder=""Nazwa pokoju"" />
                 <div class=""card-actions justify-end"">
                     <table>
                         {{ for i in (1..size) }}
@@ -109,7 +110,7 @@ public class Templates
         hx-swap=""outerHTML""
         hx-trigger=""every 2.5s""
 >
-        <h1 class=""text-3xl"">GIGA BINGO</h1>
+        <h1 class=""text-3xl"">{{ name }}</h1>
         <h2 class=""text-xl"">Pokój: {{ room }}</h2>
         <button class=""btn btn-primary"" onclick=""copyHref()"">Kopiuj link</button>
         <table>
@@ -117,7 +118,7 @@ public class Templates
             <tr>
             {{ for row in column }}
                 <th>
-                <button class=""btn text-md w-24 h-24 border-2 border-black m-1 {{ row.is_marked ? 'btn-error' : 'btn-primary' }}"" name=""field-{{ row.id }}""
+                <button class=""btn text-md w-48 h-24 border-2 border-black m-1 {{ row.is_marked ? 'btn-error' : 'btn-primary' }}"" name=""field-{{ row.id }}""
                     hx-post=""/board/{{ room }}/{{ row.id }}""
                     hx-target=""body""
                     hx-swap=""outerHTML""
