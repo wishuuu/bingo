@@ -38,14 +38,15 @@ app.MapGet("/board", ([FromQuery(Name = "board")] int board) =>
     .WithName("Board")
     .WithOpenApi();
 
-app.MapPost("/board", (CreateBoardDto dto) =>
+app.MapPost("/board", (HttpResponse resp, CreateBoardDto dto) =>
     {
         var key = BingoService.AddBoard(new BingoBoard(dto.values));
 
         if (BingoService.Boards.TryGetValue(key, out var boardDto))
         {
-            return Results.Text(Templates.BoardTemplate().Render(new { Fields = boardDto.FieldsInRows, Room = key }),
-                "text/html");
+            // return redirect to board
+            resp.Headers.Append("HX-Redirect", $"/board?board={key}");
+            return Results.NoContent();
         }
 
         return Results.Text(Templates.InternalErr().Render(), "text/html");

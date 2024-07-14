@@ -17,6 +17,12 @@ public class Templates
     <link href=""https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css"" rel=""stylesheet"" type=""text/css"" />
     <script src=""https://cdn.tailwindcss.com""></script>
 </head>
+<script>
+    function copyHref() {
+        console.log(window.location.href);
+        navigator.clipboard.writeText(window.location.href);
+    }
+</script>
 <body>
     <form 
         hx-get=""/board""
@@ -90,6 +96,12 @@ public class Templates
     <link href=""https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css"" rel=""stylesheet"" type=""text/css"" />
     <script src=""https://cdn.tailwindcss.com""></script>
 </head>
+<script>
+    function copyHref() {
+        console.log(window.location.href);
+        navigator.clipboard.writeText(window.location.href);
+    }
+</script>
 <body>
     <div
         hx-get=""/board?board={{ room }}""
@@ -99,6 +111,7 @@ public class Templates
 >
         <h1 class=""text-3xl"">GIGA BINGO</h1>
         <h2 class=""text-xl"">Pokój: {{ room }}</h2>
+        <button class=""btn btn-primary"" onclick=""copyHref()"">Kopiuj link</button>
         <table>
         {{ for column in fields }}
             <tr>
