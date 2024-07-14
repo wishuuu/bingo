@@ -29,7 +29,7 @@ app.MapGet("/board", ([FromQuery(Name = "board")] int board) =>
     {
         if (BingoService.Boards.TryGetValue(board, out var boardDto))
         {
-            return Results.Text(Templates.BoardTemplate().Render(new { Fields = boardDto.FieldsInRows, Room = board, Name = boardDto.Name }),
+            return Results.Text(Templates.BoardTemplate().Render(new { Fields = boardDto.FieldsInRows, Room = board, boardDto.Name }),
                 "text/html");
         }
 
@@ -58,7 +58,7 @@ app.MapPost("/board/{id:int}/{field:int}", (int id, int field) =>
     {
         var board = BingoService.MarkField(id, field);
         if (board != null)
-            return Results.Text(Templates.BoardTemplate().Render(new { Fields = board.FieldsInRows, Room = id }), "text/html");
+            return Results.Text(Templates.BoardTemplate().Render(new { Fields = board.FieldsInRows, Room = id, board.Name }), "text/html");
         return Results.Text(Templates.NotFound().Render(), "text/html");
     })
     .WithName("Mark field")
