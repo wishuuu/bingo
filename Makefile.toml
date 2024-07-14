@@ -1,0 +1,10 @@
+﻿[tasks.flow]
+dependencies=["build-docker", "push-docker"]
+
+[tasks.build-docker]
+command="docker"
+args = ["build", ".", "-f", "./bingo/Dockerfile", "-t", "wishuuu/bingo"]
+
+[tasks.push-docker]
+command="docker"
+args = ["push", "wishuuu/bingo"]
