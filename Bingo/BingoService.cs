@@ -29,6 +29,17 @@ public static class BingoService
 
         return null;
     }
+
+    public static BingoBoard? ClearBoard(int board)
+    {
+        if (Boards.TryGetValue(board, out var boardDto))
+        {
+            boardDto.ClearFields();
+            return boardDto;
+        }
+
+        return null;
+    }
 }
 
 public class BingoBoard
@@ -52,6 +63,14 @@ public class BingoBoard
     public void MarkField(int field)
     {
         Fields[field].IsMarked = true;
+    }
+
+    public void ClearFields()
+    {
+        foreach (var f in Fields)
+        {
+            f.IsMarked = String.IsNullOrEmpty(f.Value);
+        }
     }
 }
 

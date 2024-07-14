@@ -104,17 +104,18 @@ public class Templates
     }
 </script>
 <body>
-    <div
+    <div class=""card bg-base-100 w-10/12 shadow-xl m-8""
+        style=""width: {{board.size * 50 * 4}}px""
         hx-get=""/board?board={{ room }}""
         hx-target=""body""
         hx-swap=""outerHTML""
         hx-trigger=""every 2.5s""
 >
-        <h1 class=""text-3xl"">{{ name }}</h1>
+        <h1 class=""text-3xl"">{{ board.name }}</h1>
         <h2 class=""text-xl"">Pokój: {{ room }}</h2>
         <button class=""btn btn-primary"" onclick=""copyHref()"">Kopiuj link</button>
-        <table>
-        {{ for column in fields }}
+        <table style=""width: {{board.size * 50 * 4}}px"">
+        {{ for column in board.fields_in_rows }}
             <tr>
             {{ for row in column }}
                 <th>
@@ -131,6 +132,7 @@ public class Templates
             </tr>
         {{ end }}
         </table>
+        <button class=""btn btn-primary"" hx-post=""/board/{{ room }}/clean"" hx-target=""body"" hx-swap=""outerHTML"" hx-trigger=""click"">Wyczyść oznaczenia</button>
     </div>
 </body>
 </html>
